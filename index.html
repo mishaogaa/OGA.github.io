@@ -3,14 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OGAM - Yellow & Black</title>
-    <link rel="stylesheet" href="style.css">
+    <title>OGAM</title>
+    <style>
+        body {
+            background-color: black;
+            color: #ffd700;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .content {
+            max-width: 800px;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 72px;
+            border: 3px solid #ffd700;
+            padding: 20px 50px;
+            display: inline-block;
+            margin: 30px 0;
+        }
+        .small-text {
+            border-top: 1px dashed #ffd700;
+            padding-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Main ASCII Art Container -->
-        <div class="ascii-container">
-            <pre class="ascii-art">
+    <div class="content">
+        <pre style="color: #ffd700; font-size: 12px;">
         _______                   _____                    _____          
        /::\    \                 /\    \                  /\    \         
       /::::\    \               /::\    \                /::\    \        
@@ -32,27 +57,14 @@
         \::/____/               \::::/    /               /:::/    /       
          ~~                      \::/____/                \::/    /        
                                                            \/____/         
-            </pre>
-            
-            <!-- OGAM Text Below ASCII Art -->
-            <div class="ogam-text">
-                <h1>OGAM</h1>
-            </div>
-            
-            <!-- Small Text Area - Put your smaller text here -->
-            <div class="small-text">
-                <!-- ===================================== -->
-                <!-- === PUT YOUR SMALL TEXT BELOW THIS === -->
-                <!-- ===================================== -->
-                
-                <p>Your small text goes here</p>
-                <p>You can add multiple lines</p>
-                <p>Like this example text</p>
-                
-                <!-- ===================================== -->
-                <!-- === PUT YOUR SMALL TEXT ABOVE THIS === -->
-                <!-- ===================================== -->
-            </div>
+        </pre>
+        
+        <h1>OGAM</h1>
+        
+        <div class="small-text">
+            <p>Your small text goes here</p>
+            <p>You can add multiple lines</p>
+            <p>Like this example text</p>
         </div>
     </div>
 </body>
