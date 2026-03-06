@@ -7,18 +7,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Thick Yellow Top Strip -->
-    <div class="top-strip"></div>
+    <!-- Thick Yellow Top Strip WITH BUTTONS -->
+    <div class="top-strip">
+        <div class="strip-container">
+            <div class="nav-buttons">
+                <button class="nav-btn home-btn" onclick="showHomeContent()"> HOME</button>
+                <button class="nav-btn rain-btn" onclick="showRainContent()">Rainikene</button>
+                <button class="nav-btn about-btn" onclick="showAboutContent()">About OGA</button>
+                <button class="nav-btn discord-btn" onclick="window.open('https://discord.gg/4PW5akrprA', '_blank')">Discordikene :3</button>
+                <button class="nav-btn silly-btn" onclick="showSillyImages()">SILLY IMAGES</button>
+            </div>
+        </div>
+    </div>
 
     <div class="content-wrapper">
-        <!-- TOP SECTION: ASCII with Images on Sides -->
+        <!-- TOP SECTION: ASCII with Images on Sides (FLOATING) -->
         <div class="top-section">
-            <!-- Left Small Image (SAME SIZE) -->
+            <!-- Left Small Image (FLOATING UP/DOWN) -->
             <div class="side-image left-image">
-                <img src="gentelmens_banner_2.png" alt="OGA Left" class="small-image">
+                <img src="gentelmens_banner_2.png" alt="OGA Left" class="small-image float-1" id="leftFloatImage">
             </div>
             
-            <!-- Center ASCII Art (TOP CENTER) -->
+            <!-- Center ASCII Art -->
             <div class="center-ascii">
                 <pre class="ascii-art">
         _______                   _____                    _____          
@@ -45,31 +55,307 @@
                 </pre>
             </div>
             
-            <!-- Right Small Image (SAME SIZE) -->
+            <!-- Right Small Image (FLOATING UP/DOWN - UNSYNCED) -->
             <div class="side-image right-image">
-                <img src="gentelmens_banner_2.png" alt="OGA Right" class="small-image">
+                <img src="gentelmens_banner_2.png" alt="OGA Right" class="small-image float-2" id="rightFloatImage">
             </div>
         </div>
         
         <!-- SCROLLABLE CONTENT BELOW -->
         <div class="scrollable-content">
-            <!-- OGA Text -->
-            <div class="oga-text">
-                <h1>OGA</h1>
+            <!-- FLOATING IMAGES CONTAINER -->
+            <div class="floating-images-container" id="floatingImagesContainer"></div>
+            
+            <!-- BUTTON CONTENT DISPLAY AREA -->
+            <div class="button-content-area" id="buttonContentArea" style="display: none;">
+                <div class="content-display" id="contentDisplay"></div>
             </div>
             
-            <!-- Small Text Section -->
-            <div class="small-text">
-                <p>This is real oga shiiii</p>
-                <p>we fuck shiiii</p>
+            <!-- REGULAR CONTENT (Visible on HOME) -->
+            <div id="homeContent">
+                <!-- .ggg SECTION (6 times) -->
+                <div class="ggg-section">
+                    <div class="ggg-container">
+                        <div class="ggg-item">.oga palju asju tuleb veel lisada so far am fucki naround XD  </div>
+                     
+                    </div>
+                </div>
+                
+                <!-- OGA REPEATED SECTION (7 times) -->
+                <div class="oga-repeat-section">
+                    <div class="oga-repeat">OGA</div>
            
+                </div>
+                
+                <!-- .ggg SECTION AGAIN (6 times) -->
+                <div class="ggg-section">
+                    <div class="ggg-container">
+                        <div class="g-item">.Ogakene i love you and i will love you forever</div>
+                    
+                    </div>
+                </div>
+                
+                <!-- RAIN QUOTES SECTION -->
+                <div class="rain-quotes-section">
+                    <h3 class="quotes-title">Rain quotes</h3>
+                    <div class="quote-item">Tūra kui big tissid uhel on . . mine muni</div>
+                    <div class="quote-item">Tūra no miks se pede blokkis mind</div>
+                    <div class="quote-item">No jah siis</div>
+                    <div class="quote-item">Tūra ma mingi saan persse</div>
+                    <div class="quote-item">"BABY kas sa oled õhupal seed sint kül pärgadags"</div>
+                    <div class="quote-item">Sa oled nagu narkootikum millest ma enam loobuda ei suuda</div>
+                    <div class="quote-item">Sokolikkok</div>
+                    <div class="quote-item">Ei mees see ei käi nii</div>
+                </div>
+                
+                <!-- ANIMATED ASCII TEXT -->
+                <div class="animated-ascii-container">
+                    <pre class="animated-ascii" id="animatedAscii">
+.d88b                          8               8 w            
+8P www .d88b 8d8b.d8b. d88b    8 .d8b. .d88 .d88 w 8d8b. .d88 
+8b  d8 8.dP' 8P Y8P Y8 `Yb.    8 8' .8 8  8 8  8 8 8P Y8 8  8 
+`Y88P' `Y88P 8   8   8 Y88P    8 `Y8P' `Y88 `Y88 8 8   8 `Y88 
+
+
+Palju Plaju uusi asju tuleb lisada
+Ma kirjutan kõike seda lihtsalt et näha kuidas see tuleb välja nägema kui ma lisan siia juurde asju
+
+
+
+
+
+
+
+
+
+                                                         
+                    </pre>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Thick Yellow Bottom Strip -->
+    <!-- Bottom Strip -->
     <div class="bottom-strip"></div>
+
+    <!-- FULLSCREEN IMAGE VIEWER MODAL -->
+    <div id="fullscreenModal" class="fullscreen-modal" onclick="closeFullscreen()">
+        <div class="fullscreen-content">
+            <button class="fullscreen-close" onclick="closeFullscreen(event)">✕</button>
+            <img id="fullscreenImage" class="fullscreen-image" src="" alt="Fullscreen Image">
+        </div>
+    </div>
+
+    <script>
+        // ========== IMAGE ARRAY ==========
+        const imageFiles = [];
+        for (let i = 1; i <= 13; i++) {
+            imageFiles.push(`image${i}.png`);
+        }
+        
+        // ========== FULLSCREEN VIEWER ==========
+        function openFullscreen(src, event) {
+            if (event) event.stopPropagation();
+            document.getElementById('fullscreenImage').src = src;
+            document.getElementById('fullscreenModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeFullscreen(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('fullscreenModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // ========== FLOATING IMAGES (FROM BOTH SIDES) ==========
+        function startFloatingImages() {
+            const container = document.getElementById('floatingImagesContainer');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            // Create initial batch
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    createFloatingImage(container);
+                }, i * 800);
+            }
+            
+            // Continue creating images
+            setInterval(() => {
+                createFloatingImage(container);
+            }, 3000);
+        }
+        
+        function createFloatingImage(container) {
+            const side = Math.random() > 0.5 ? 'left' : 'right';
+            const randomIndex = Math.floor(Math.random() * imageFiles.length);
+            const imgSrc = imageFiles[randomIndex];
+            
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.alt = 'Floating Image';
+            img.className = `floating-image ${side}-image`;
+            img.onclick = (e) => openFullscreen(imgSrc, e);
+            
+            // Position on edges
+            if (side === 'left') {
+                img.style.left = (1 + Math.random() * 8) + '%';
+            } else {
+                img.style.right = (1 + Math.random() * 8) + '%';
+            }
+            
+            img.style.bottom = -50 + Math.random() * 200 + 'px';
+            const duration = 10 + Math.random() * 8;
+            img.style.animation = `floatUp ${duration}s linear forwards`;
+            const size = 60 + Math.random() * 80;
+            img.style.width = size + 'px';
+            img.style.height = size + 'px';
+            
+            container.appendChild(img);
+            
+            setTimeout(() => {
+                if (img.parentNode) img.remove();
+            }, duration * 1000);
+        }
+        
+        // ========== BUTTON FUNCTIONS ==========
+        function showHomeContent() {
+            // Show all home elements
+            document.getElementById('floatingImagesContainer').style.display = 'block';
+            document.getElementById('homeContent').style.display = 'block';
+            document.getElementById('buttonContentArea').style.display = 'none';
+            
+            // Make sure side images keep floating
+            document.getElementById('leftFloatImage').classList.add('float-1');
+            document.getElementById('rightFloatImage').classList.add('float-2');
+        }
+        
+        function showRainContent() {
+            // Hide home content
+            document.getElementById('floatingImagesContainer').style.display = 'none';
+            document.getElementById('homeContent').style.display = 'none';
+            
+            // Show button content
+            const contentArea = document.getElementById('buttonContentArea');
+            const contentDisplay = document.getElementById('contentDisplay');
+            
+            contentArea.style.display = 'block';
+            contentDisplay.innerHTML = `
+                <h2> RAINIKENE</h2>
+                <div class="image-gallery">
+                    <img src="image1.png" class="gallery-image" onclick="openFullscreen('image1.png', event)">
+                    <img src="image2.png" class="gallery-image" onclick="openFullscreen('image2.png', event)">
+                    <img src="image3.png" class="gallery-image" onclick="openFullscreen('image3.png', event)">
+                </div>
+                <div class="rain-quotes">
+                    <p>Tūra kui big tissid uhel on . . mine muni</p>
+                    <p>Tūra no miks se pede blokkis mind</p>
+                    <p>No jah siis</p>
+                    <p>Tūra ma mingi saan persse</p>
+                    <p>"BABY kas sa oled õhupal seed sint kül pärgadags"</p>
+                    <p>Sa oled nagu narkootikum millest ma enam loobuda ei suuda</p>
+                    <p>Sokolikkok</p>
+                </div>
+                <button onclick="showHomeContent()" class="action-btn">Back to Home</button>
+            `;
+        }
+        
+        function showAboutContent() {
+            // Hide home content
+            document.getElementById('floatingImagesContainer').style.display = 'none';
+            document.getElementById('homeContent').style.display = 'none';
+            
+            // Show button content
+            const contentArea = document.getElementById('buttonContentArea');
+            const contentDisplay = document.getElementById('contentDisplay');
+            
+            contentArea.style.display = 'block';
+            contentDisplay.innerHTML = `
+                <h2> ABOUT OGA</h2>
+                <div class="image-gallery">
+                    <img src="image4.png" class="gallery-image" onclick="openFullscreen('image4.png', event)">
+                    <img src="image5.png" class="gallery-image" onclick="openFullscreen('image5.png', event)">
+                    <img src="image6.png" class="gallery-image" onclick="openFullscreen('image6.png', event)">
+                </div>
+                <div class="about-text">
+                    <p>✦ OGA Forever</p>
+                    <p>✦  ALgselt oli kui server kus me trolliisme rainikest</p>
+                    <p>✦ Meie elu sõltub rainis</p>
+                    <p>✦ Rain musukene me armastame sind meie väike beebi pojakene
+                    ma tean et sa kunagi ei roni siia WebSite peale nii et ma annan sulle kõige hottimaid kisse</p>
+                </div>
+                <div class="ggg-mini">
+                    <p>.oga</p>
+                </div>
+                <button onclick="showHomeContent()" class="action-btn">Back to Home</button>
+            `;
+        }
+        
+        function showSillyImages() {
+            // Hide home content
+            document.getElementById('floatingImagesContainer').style.display = 'none';
+            document.getElementById('homeContent').style.display = 'none';
+            
+            // Build gallery
+            let gallery = '<div class="silly-gallery-full">';
+            for (let i = 1; i <= 13; i++) {
+                gallery += `
+                    <div class="silly-item">
+                        <img src="image${i}.png" class="silly-image" onclick="openFullscreen('image${i}.png', event)">
+                        <p>Image ${i}</p>
+                    </div>
+                `;
+            }
+            gallery += '</div>';
+            
+            // Show button content
+            const contentArea = document.getElementById('buttonContentArea');
+            const contentDisplay = document.getElementById('contentDisplay');
+            
+            contentArea.style.display = 'block';
+            contentDisplay.innerHTML = `
+                <h2> SILLY IMAGES</h2>
+                ${gallery}
+                <button onclick="showHomeContent()" class="action-btn">Back to Home</button>
+            `;
+        }
+        
+        // ========== ANIMATE ASCII LETTERS ==========
+        function animateAsciiLetters() {
+            const container = document.getElementById('animatedAscii');
+            if (!container) return;
+            
+            const text = container.textContent;
+            let html = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                if (char === ' ') {
+                    html += ' ';
+                } else if (char === '\n') {
+                    html += '\n';
+                } else {
+                    html += `<span style="animation-delay: ${i * 0.03}s">${char}</span>`;
+                }
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        // ========== INITIALIZE ==========
+        window.addEventListener('load', function() {
+            animateAsciiLetters();
+            startFloatingImages();
+            showHomeContent(); // Make sure home is shown
+        });
+        
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFullscreen();
+            }
+        });
+    </script>
 </body>
 </html>
-
-
