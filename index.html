@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OGA - Left ASCII Right Image</title>
+    <title>OGA - Small Images on Sides</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- EXTRA THICK Yellow Top Strip - NO BLOOM -->
+    <!-- EXTRA THICK Yellow Top Strip -->
     <div class="top-strip"></div>
 
     <div class="content-wrapper">
-        <!-- Main Container -->
-        <div class="main-container">
-            <!-- Left Side - ASCII Art (SAME SIZE AS IMAGE) -->
-            <div class="left-side">
+        <!-- ASCII Art with Images on Sides -->
+        <div class="ascii-row">
+            <!-- Left Small Image -->
+            <div class="side-image left-image">
+                <img src="gentelmens_banner_2.png" alt="OGA Left" class="small-image">
+            </div>
+            
+            <!-- Center ASCII Art -->
+            <div class="center-ascii">
                 <pre class="ascii-art">
         _______                   _____                    _____          
        /::\    \                 /\    \                  /\    \         
@@ -38,21 +43,20 @@
          ~~                      \::/____/                \::/    /        
                                                            \/____/         
                 </pre>
-                
-                <!-- OGA Text Below ASCII -->
-                <div class="oga-text">
-                    <h1>OGA</h1>
-                </div>
             </div>
             
-            <!-- Right Side - OGA Image (SAME SIZE AS ASCII) -->
-            <div class="right-side">
-                <img src="gentelmens_banner_2.png" alt="OGA Banner" class="oga-image">
-                <div class="image-caption">OGA</div>
+            <!-- Right Small Image -->
+            <div class="side-image right-image">
+                <img src="gentelmens_banner_2.png" alt="OGA Right" class="small-image">
             </div>
         </div>
         
-        <!-- Small Text Section (NO LINE ABOVE IT) -->
+        <!-- OGA Text Below -->
+        <div class="oga-text">
+            <h1>OGA</h1>
+        </div>
+        
+        <!-- Small Text Section -->
         <div class="small-text">
             <p>Your small text goes here</p>
             <p>You can add multiple lines</p>
@@ -60,7 +64,7 @@
         </div>
     </div>
 
-    <!-- EXTRA THICK Yellow Bottom Strip - NO BLOOM -->
+    <!-- EXTRA THICK Yellow Bottom Strip -->
     <div class="bottom-strip"></div>
 </body>
 </html>
