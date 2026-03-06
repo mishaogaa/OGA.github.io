@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OGA - Complete Site</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Thick Yellow Top Strip WITH BUTTONS -->
+    <div class="top-strip">
+        <div class="strip-container">
+            <div class="nav-buttons">
+                <button class="nav-btn home-btn" onclick="showHomeContent()"> HOME</button>
+                <button class="nav-btn rain-btn" onclick="showRainContent()"> Rainikene</button>
+                <button class="nav-btn about-btn" onclick="showAboutContent()"> About OGA</button>
+                <button class="nav-btn discord-btn" onclick="window.open('https://discord.gg/4PW5akrprA', '_blank')"> JOIN US ON DISCORD</button>
+                <button class="nav-btn silly-btn" onclick="showSillyImages()"> SILLY IMAGES</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- TOP SECTION: ASCII with Images on Sides -->
+        <div class="top-section">
+            <!-- Left Small Image (FLOATING) -->
+            <div class="side-image left-image">
+                <img src="gentelmens_banner_2.png" alt="OGA Left" class="small-image float-1">
+            </div>
+            
+            <!-- Center ASCII Art -->
+            <div class="center-ascii">
+                <pre class="ascii-art">
+        _______                   _____                    _____          
+       /::\    \                 /\    \                  /\    \         
+      /::::\    \               /::\    \                /::\    \        
+     /::::::\    \             /::::\    \              /::::\    \       
+    /::::::::\    \           /::::::\    \            /::::::\    \      
+   /:::/~~\:::\    \         /:::/\:::\    \          /:::/\:::\    \     
+  /:::/    \:::\    \       /:::/  \:::\    \        /:::/__\:::\    \    
+ /:::/    / \:::\    \     /:::/    \:::\    \      /::::\   \:::\    \   
+/:::/____/   \:::\____\   /:::/    / \:::\    \    /::::::\   \:::\    \  
+|:::|    |     |:::|    | /:::/    /   \:::\ ___\  /:::/\:::\   \:::\    \ 
+|:::|____|     |:::|    |/:::/____/  ___\:::|    |/:::/  \:::\   \:::\____\
+ \:::\    \   /:::/    / \:::\    \ /\  /:::|____|\::/    \:::\  /:::/    /
+  \:::\    \ /:::/    /   \:::\    /::\ \::/    /  \/____/ \:::\/:::/    / 
+   \:::\    /:::/    /     \:::\   \:::\ \/____/            \::::::/    /  
+    \:::\__/:::/    /       \:::\   \:::\____\               \::::/    /   
+     \::::::::/    /         \:::\  /:::/    /               /:::/    /    
+      \::::::/    /           \:::\/:::/    /               /:::/    /     
+       \::::/    /             \::::::/    /               /:::/    /      
+        \::/____/               \::::/    /               /:::/    /       
+         ~~                      \::/____/                \::/    /        
+                                                           \/____/         
+                </pre>
+            </div>
+            
+            <!-- Right Small Image -->
+            <div class="side-image right-image">
+                <img src="gentelmens_banner_2.png" alt="OGA Right" class="small-image float-2">
+            </div>
+        </div>
+        
+        <!-- SCROLLABLE CONTENT -->
+        <div class="scrollable-content">
+            <!-- FLOATING IMAGES CONTAINER (Starts immediately) -->
+            <div class="floating-images-container" id="floatingImagesContainer"></div>
+            
+            <!-- BUTTON CONTENT DISPLAY AREA -->
+            <div class="button-content-area" id="buttonContentArea" style="display: none;">
+                <div class="content-display" id="contentDisplay"></div>
+            </div>
+            
+            <!-- ANIMATED ASCII TEXT -->
+            <div class="animated-ascii-container" id="animatedAsciiContainer">
+                <pre class="animated-ascii" id="animatedAscii">
+.d88b                          8               8 w            
+8P www .d88b 8d8b.d8b. d88b    8 .d8b. .d88 .d88 w 8d8b. .d88 
+8b  d8 8.dP' 8P Y8P Y8 `Yb.    8 8' .8 8  8 8  8 8 8P Y8 8  8 
+`Y88P' `Y88P 8   8   8 Y88P    8 `Y8P' `Y88 `Y88 8 8   8 `Y88 
+                                                         wwdP  
+                </pre>
+            </div>
+            
+            <!-- Small Text Section -->
+            <div class="small-text" id="defaultSmallText">
+                <p>Rain quotes</p>
+                <p>Türa kui big tissid ühel on .. mine munni</p>
+                <p>Türa no miks se pede blokkis mind</p>
+                <p>No jah siis</p>
+                <p>Türa ma mingi saan persse</p>
+                <p>"BABY kas sa oled õhupal sesd sint kül pärgadags"</p>
+                <p>Sa oled nagu narkootikum millest ma enam loobuda ei suuda</p>
+                <p>Sokoldikok</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Strip -->
+    <div class="bottom-strip"></div>
+
+    <!-- FULLSCREEN IMAGE VIEWER MODAL -->
+    <div id="fullscreenModal" class="fullscreen-modal" onclick="closeFullscreen()">
+        <div class="fullscreen-content">
+            <button class="fullscreen-close" onclick="closeFullscreen(event)">✕</button>
+            <img id="fullscreenImage" class="fullscreen-image" src="" alt="Fullscreen Image">
+        </div>
+    </div>
+
+    <script>
+        // ========== IMAGE ARRAY ==========
+        const imageFiles = [];
+        for (let i = 1; i <= 13; i++) {
+            imageFiles.push(`image${i}.png`);
+        }
+        
+        // ========== FULLSCREEN VIEWER ==========
+        function openFullscreen(src, event) {
+            if (event) event.stopPropagation();
+            document.getElementById('fullscreenImage').src = src;
+            document.getElementById('fullscreenModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeFullscreen(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('fullscreenModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // ========== FLOATING IMAGES (ON EDGES, SLOWER) ==========
+        function startFloatingImages() {
+            const container = document.getElementById('floatingImagesContainer');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            // Create initial batch - 8 images staggered
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    createFloatingImage(container);
+                }, i * 800);
+            }
+            
+            // Continue creating images every 3 seconds (slower)
+            setInterval(() => {
+                createFloatingImage(container);
+            }, 3000);
+        }
+        
+        function createFloatingImage(container) {
+            const side = Math.random() > 0.5 ? 'left' : 'right';
+            
+            // Random image from 1-13
+            const randomIndex = Math.floor(Math.random() * imageFiles.length);
+            const imgSrc = imageFiles[randomIndex];
+            
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.alt = 'Floating Image';
+            img.className = `floating-image ${side}-image`;
+            img.onclick = (e) => openFullscreen(imgSrc, e);
+            
+            // Position on EXTREME EDGES (not in center)
+            if (side === 'left') {
+                img.style.left = (1 + Math.random() * 8) + '%'; // 1% to 9% from left
+            } else {
+                img.style.right = (1 + Math.random() * 8) + '%'; // 1% to 9% from right
+            }
+            
+            // Random starting position
+            img.style.bottom = -30 + Math.random() * 150 + 'px';
+            
+            // Slower animation: 10-18 seconds
+            const duration = 10 + Math.random() * 8;
+            img.style.animation = `floatUp ${duration}s linear forwards`;
+            
+            // Random size
+            const size = 60 + Math.random() * 80;
+            img.style.width = size + 'px';
+            img.style.height = size + 'px';
+            
+            // Random rotation
+            img.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+            
+            container.appendChild(img);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (img.parentNode) img.remove();
+            }, duration * 1000);
+        }
+        
+        // ========== ANIMATE ASCII LETTERS ==========
+        function animateAsciiLetters() {
+            const container = document.getElementById('animatedAscii');
+            if (!container) return;
+            
+            const text = container.textContent;
+            let html = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                if (char === ' ') {
+                    html += ' ';
+                } else if (char === '\n') {
+                    html += '\n';
+                } else {
+                    html += `<span style="animation-delay: ${i * 0.03}s">${char}</span>`;
+                }
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        // ========== BUTTON FUNCTIONS ==========
+        function showHomeContent() {
+            document.getElementById('floatingImagesContainer').style.display = 'block';
+            document.getElementById('animatedAsciiContainer').style.display = 'block';
+            document.getElementById('defaultSmallText').style.display = 'block';
+            document.getElementById('buttonContentArea').style.display = 'none';
+        }
+        
+        function showRainContent() {
+            const gallery = [1,2,3].map(i => 
+                `<img src="image${i}.png" class="gallery-image" onclick="openFullscreen('image${i}.png', event)">`
+            ).join('');
+            
+            showContent(`
+                <h2> About meie rainikene musukene beebikene</h2>
+                <div class="image-gallery">${gallery}</div>
+                <p class="gallery-text"> Rain musukene me armastame sind meie väike beebi pojakene
+                    ma tean et sa kunagi ei roni siia WebSite peale nii et ma annan sulle kõige hottimaid kisse </p>
+                <button onclick="showHomeContent()" class="action-btn">Back to Home</button>
+            `);
+        }
+        
+        function showAboutContent() {
+            const gallery = [4,5,6].map(i => 
+                `<img src="image${i}.png" class="gallery-image" onclick="openFullscreen('image${i}.png', event)">`
+            ).join('');
+            
+            showContent(`
+                <h2> ABOUT OGA</h2>
+                <div class="image-gallery">${gallery}</div>
+                <div class="about-text">
+                    <p>✦ Oga forever</p>
+                    <p>✦ ALgselt oli kui server kus me trolliisme rainikest</p>
+                    <p>✦ Meie elu sõltub rainist</p>
+                    
+                </div>
+                <button onclick="showHomeContent()" class="action-btn">Back to Home</button>
+            `);
+        }
+        
+        function showSillyImages() {
+            let gallery = '<div class="silly-gallery-full">';
+            
+            // Show all 13 images
+            for (let i = 1; i <= 13; i++) {
+                gallery += `
+                    <div class="silly-item">
+                        <img src="image${i}.png" class="silly-image" onclick="openFullscreen('image${i}.png', event)">
+                        <p>Image ${i}</p>
+                    </div>
+                `;
+            }
+            
+            gallery += '</div><p class="gallery-text">Click any image for fullscreen view</p>';
+            
+            showContent(`
+                <h2>🖼️ SILLY IMAGES GALLERY</h2>
+                ${gallery}
+                <button onclick="showHomeContent()" class="action-btn">Back to Home</button>
+            `);
+        }
+        
+        function showContent(html) {
+            document.getElementById('floatingImagesContainer').style.display = 'none';
+            document.getElementById('animatedAsciiContainer').style.display = 'none';
+            document.getElementById('defaultSmallText').style.display = 'none';
+            
+            const contentArea = document.getElementById('buttonContentArea');
+            const contentDisplay = document.getElementById('contentDisplay');
+            
+            contentArea.style.display = 'block';
+            contentDisplay.innerHTML = html;
+        }
+        
+        // ========== INITIALIZE ==========
+        window.addEventListener('load', function() {
+            animateAsciiLetters();
+            startFloatingImages();
+        });
+        
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>
